@@ -11,6 +11,19 @@ body {
     background: #1c1f24;
 }
 
+
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .header {
     display: flex;
     justify-content: center;
@@ -21,11 +34,12 @@ body {
         width: 80px;
         height: 80px;
         object-fit: contain;
+        user-select: none;
     }
 
     .counter {
         font-size: 36px;
-        font-weight: semibold;
+        font-weight: bold;
         text-align: center;
         user-select: none;
     }
@@ -81,4 +95,18 @@ body {
         opacity: 0;
         transform: translateY(-50px);
     }
+}
+
+.progress-container {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #9333ea;
+    transition: width 0.3s ease;
 }

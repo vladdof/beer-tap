@@ -1,7 +1,10 @@
 const ANGLE = 40;
+const PIECE = 50;
 const circle = document.querySelector('.circle');
 const touch = document.querySelector('.touch');
 const counter = document.querySelector('.counter');
+const progressBar = document.querySelector('.progress-bar');
+let lastBonusCheck = 0;
 
 initApp();
 
@@ -11,6 +14,7 @@ function initApp() {
     updateImage(countValue);
     addListener();
     updateCounterDisplay(countValue);
+    updateProgressBar(countValue);
 }
 
 function addListener() {
@@ -69,6 +73,7 @@ function incrementCounter() {
     setCounter(countValue);
     updateCounterDisplay(countValue);
     updateImage(countValue);
+    updateProgressBar(countValue);
 }
 
 function updateCounterDisplay(number) {
@@ -76,9 +81,30 @@ function updateCounterDisplay(number) {
 }
 
 function updateImage(countValue) {
-    if (countValue >= 50) {
+    if (countValue >= PIECE) {
         touch.setAttribute('src', './assets/barn.png');
     } else {
         touch.setAttribute('src', './assets/gomer.png');
     }
+}
+
+function updateProgressBar(number) {
+    progressBar.style.width = ((number % PIECE) * 2) + '%';
+    const currentBonusLevel = Math.floor(number / PIECE);
+
+    if (currentBonusLevel > lastBonusCheck) {
+        lastBonusCheck = currentBonusLevel;
+        progressBar.style.background = getRandomColor();
+    }
+}
+
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+
+    return color;
 }
