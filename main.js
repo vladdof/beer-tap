@@ -5,6 +5,7 @@ const touch = document.querySelector('.touch');
 const counter = document.querySelector('.counter');
 const progressBar = document.querySelector('.progress-bar');
 let lastBonusCheck = 0;
+let isTouch = 'ontouchstart' in window;
 
 initApp();
 
@@ -18,11 +19,28 @@ function initApp() {
 }
 
 function addListener() {
+    if (isTouch) {
+        circle.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            handleTouches(event.touches);
+        });
+        return;
+    }
+
     circle.addEventListener('click', (event) => {
         setRotation(event);
         createIncrementCount(event);
         incrementCounter();
     });
+}
+
+function handleTouches(touches) {
+    for (let i = 0; i < touches.length; i++) {
+        const touch = touches[i];
+        setRotation(touch);
+        createIncrementCount(touch);
+        incrementCounter();
+    }
 }
 
 function setRotation(event) {
